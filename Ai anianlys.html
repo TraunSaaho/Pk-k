@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Skin Analysis</title>
+<link rel="stylesheet" href="style ai skin.css">
+
+<link rel="stylesheet" href="upload.css">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <!-- upolad iamge part -->  
+
+<section id="uploadScreen" class="screen active">
+<div class="app">
+
+    <body>
+        <ul id="tipsList"></ul>
+
+       
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+ <!-- upolad iamge part --> 
+
+<div class="container">
+
+    <!-- BACK BUTTON -->
+    <div class="back" id="backHome">
+        <i class="fa-solid fa-arrow-left"></i> Back to Home
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>Upload Your <span>Selfie</span></h1>
+        <p>Follow the guide below for best results</p>
+    </div>
+
+    <div class="main">
+
+        <!-- LEFT CARD -->
+        <div class="card left-card">
+
+            <h2>Camera Guide</h2>
+
+            <div class="camera-box" id="cameraBox">
+
+                <div class="overlay-text">
+                    Position your face<br>within the oval
+                </div>
+
+                <div class="oval"></div>
+
+                <!-- CAMERA -->
+                <video id="video" autoplay playsinline></video>
+
+                <!-- CANVAS (hidden for capture) -->
+                <canvas id="canvas" style="display:none;"></canvas>
+
+                <!-- IMAGE PREVIEW (VERY IMPORTANT) -->
+                <img id="previewImage" style="display:none;" />
+
+            </div>
+
+            <!-- FILE INPUT -->
+            <input type="file" id="fileInput" accept="image/*" hidden>
+
+            <!-- BUTTONS -->
+            <button class="btn-gradient" id="cameraBtn">
+                <i class="fa-solid fa-camera"></i> Take Photo
+            </button>
+
+            <button class="btn-outline" id="galleryBtn">
+                <i class="fa-solid fa-upload"></i> Upload from Gallery
+            </button>
+
+            <button class="btn-success hidden" id="continueBtn">
+                Continue to Analysis
+            </button>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="right-section">
+
+            <!-- TIPS CARD -->
+            <div class="card tips-card">
+                <h3>
+                    <i class="fa-solid fa-lightbulb"></i> Tips for Best Results
+                </h3>
+
+                <ul id="tipsList">
+                    <li><i class="fa-regular fa-circle"></i> Use natural daylight</li>
+                    <li><i class="fa-regular fa-circle"></i> Face camera directly</li>
+                    <li><i class="fa-regular fa-circle"></i> Remove makeup</li>
+                    <li><i class="fa-regular fa-circle"></i> Entire face visible</li>
+                    <li><i class="fa-regular fa-circle"></i> Avoid shadows</li>
+                </ul>
+            </div>
+
+            <!-- PRO TIP -->
+            <div class="card small-card">
+                <h4>✨ Pro Tip</h4>
+                <p>Use similar lighting each time.</p>
+            </div>
+
+            <!-- PRIVACY NOTE -->
+            <div class="card small-card">
+                <h4>🔒 Privacy Note</h4>
+                <p>Your photo is encrypted and secure.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+    <!-- STEP 2 : Skin Concerns -->
+  
+
+ <section class="screen" id="concernScreen">
+
+    <div class="back" id="backToUpload">
+        <i class="fa-solid fa-arrow-left"></i> Back
+    </div>
+
+    <div class="header">
+        <h1>Tell Us About Your <span>Skin Concerns</span></h1>
+        <p>Select all that apply to help us personalize your analysis</p>
+    </div>
+
+    <div class="concern-card">
+
+        <h3>What skin issues are you experiencing?</h3>
+
+        <div class="concern-grid">
+
+            <button class="concern" data-value="Pigmentation">
+                <i class="fa-solid fa-palette"></i>
+                <span>Pigmentation</span>
+            </button>
+
+            <button class="concern" data-value="Acne">
+                <i class="fa-solid fa-circle-dot"></i>
+                <span>Acne</span>
+            </button>
+
+            <button class="concern" data-value="Wrinkles">
+                <i class="fa-solid fa-grip-lines"></i>
+                <span>Wrinkles</span>
+            </button>
+
+            <button class="concern" data-value="Large Pores">
+                <i class="fa-solid fa-circle"></i>
+                <span>Large Pores</span>
+            </button>
+
+            <button class="concern" data-value="Dark Circles">
+                <i class="fa-solid fa-eye"></i>
+                <span>Dark Circles</span>
+            </button>
+
+            <button class="concern" data-value="Uneven Texture">
+                <i class="fa-solid fa-water"></i>
+                <span>Uneven Texture</span>
+            </button>
+
+            <button class="concern" data-value="Dryness">
+                <i class="fa-solid fa-sun"></i>
+                <span>Dryness</span>
+            </button>
+
+            <button class="concern" data-value="Oiliness">
+                <i class="fa-solid fa-droplet"></i>
+                <span>Oiliness</span>
+            </button>
+
+            <button class="concern" data-value="Redness">
+                <i class="fa-solid fa-temperature-high"></i>
+                <span>Redness</span>
+            </button>
+
+            <button class="concern" data-value="Sensitivity">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>Sensitivity</span>
+            </button>
+
+        </div>
+
+        <div class="textarea-box">
+            <label>Additional details (optional)</label>
+            <textarea id="description"
+                placeholder="Tell us more about your skin concerns..."></textarea>
+        </div>
+
+    </div>
+
+    <button class="btn-gradient next-btn" id="startAnalysis">
+        Continue to Analysis
+    </button>
+
+</section>
+
+    <!-- STEP 3 : Loading -->
+   <!-- STEP 3 : AI Loading -->
+<section id="loadingScreen" class="screen">
+
+    <div class="loading-container">
+
+        <div class="loading-card">
+
+            <div class="ai-icon">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+
+            <h1>
+                <span class="gradient-text">AI Analysis</span> in Progress
+            </h1>
+
+            <p class="sub-text">
+                Our advanced AI is analyzing your skin in real-time
+            </p>
+
+            <div class="progress-wrapper">
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <div class="progress-percent" id="progressPercent">0%</div>
+
+            </div>
+
+            <p class="loading-status" id="loadingStatus">
+                Measuring skin texture...
+            </p>
+
+            <div class="info-box">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>
+                    Did you know? Your skin renews every 28 days.
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+    <!-- STEP 3 : Loading -->
+
+    
+    <!-- STEP 4 : Unlock -->
+    <section class="screen" id="unlockScreen">
+
+        <h1>We Detected Multiple Skin Concerns</h1>
+        <h2>$2 One-Time Payment</h2>
+
+        <button class="primary-btn" id="unlockBtn">Unlock Full Report</button>
+
+    </section>
+
+    <!-- STEP 5 : Report -->
+    <section class="screen" id="reportScreen">
+
+        <h1>Your Skin Analysis Report</h1>
+
+        <div class="report-box">
+            <p><strong>Pigmentation:</strong> <span id="pigScore"></span></p>
+            <p><strong>Acne:</strong> <span id="acneScore"></span></p>
+            <p><strong>Wrinkles:</strong> <span id="wrinkleScore"></span></p>
+        </div>
+
+        <button class="primary-btn" id="viewRoutine">View Personalized Routine</button>
+
+    </section>
+
+    <!-- STEP 6 : Routine -->
+    <section class="screen" id="routineScreen">
+
+        <h1>Your Personalized Routine</h1>
+
+        <div class="routine-box">
+            <h3>Morning</h3>
+            <p>Gentle Cleanser</p>
+            <p>Vitamin C</p>
+            <p>Sunscreen SPF 50+</p>
+
+            <h3>Night</h3>
+            <p>Cleanser</p>
+            <p>Retinol</p>
+            <p>Moisturizer</p>
+        </div>
+
+    </section>
+
+</div>
+
+<script src="upload.js"></script>
+<script src="script ai skin.js"></script>
+</body>
+</html>
