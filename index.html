@@ -100,12 +100,7 @@
 
     </section>
 
-    <script>
-/* CHECK USER LOGIN */
-if(localStorage.getItem("lumiskinUser") === null){
-    window.location.href = "Login/login.html";
-}
-</script>
+ 
 
     <!-- Navigation bar ends.-->
 
@@ -524,33 +519,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<script>
 
-const profileIcon = document.getElementById("profileIcon");
-const profileMenu = document.getElementById("profileMenu");
-const logoutBtn = document.getElementById("logoutBtn");
-
-/* open dropdown */
-
-profileIcon.onclick = function(){
-
-if(profileMenu.style.display === "block"){
-profileMenu.style.display = "none";
-}else{
-profileMenu.style.display = "block";
-}
-
-};
-
-/* logout */
-
-logoutBtn.onclick = function(){
-
-window.location.href = "login.html";
-
-};
-
-</script>
 
 
 
