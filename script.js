@@ -67,7 +67,15 @@ profileMenu.style.display = "block";
 /* logout */
 
 logoutBtn.onclick = function(){
-window.location.href = "login.html";
+    window.firebaseSignOut().then(() => {
+        window.location.href = "Login/login.html";
+    }).catch((error) => {
+        console.error("Sign out error:", error);
+        // Fallback: clear session and redirect
+        sessionStorage.removeItem('lumiskinUser');
+        localStorage.removeItem('lumiskinUserEmail');
+        window.location.href = "Login/login.html";
+    });
 };
 
 /* CLOSE DROPDOWN WHEN CLICKING OUTSIDE */

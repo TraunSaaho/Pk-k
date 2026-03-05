@@ -356,6 +356,73 @@ renderProducts(filtered);
 
 });
 
+/* ================= ENHANCED SEARCH FUNCTIONALITY ===== */
+
+const searchInput = document.getElementById('searchInput');
+const clearSearchBtn = document.getElementById('clearSearch');
+
+if (searchInput) {
+    // Show/hide clear button based on input
+    searchInput.addEventListener('input', () => {
+        if (searchInput.value.length > 0) {
+            clearSearchBtn.style.display = 'flex';
+        } else {
+            clearSearchBtn.style.display = 'none';
+        }
+    });
+
+    // Clear search on button click
+    clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearSearchBtn.style.display = 'none';
+        searchInput.focus();
+        // Trigger search to show all products
+        searchInput.dispatchEvent(new Event('input'));
+    });
+
+    // Add focus animation
+    searchInput.addEventListener('focus', () => {
+        searchInput.parentElement.style.borderColor = '#ff6b00';
+    });
+
+    searchInput.addEventListener('blur', () => {
+        if (searchInput.value.length === 0) {
+            searchInput.parentElement.style.borderColor = '#e0e0e0';
+        }
+    });
+}
+
+/* ================= WISHLIST & CART ANIMATIONS ===== */
+
+const wishlistIcon = document.querySelector('.wishlist-wrapper');
+const cartIcon = document.querySelector('.cart-wrapper');
+
+if (wishlistIcon) {
+    wishlistIcon.addEventListener('click', () => {
+        wishlistIcon.classList.add('active');
+        setTimeout(() => wishlistIcon.classList.remove('active'), 600);
+    });
+}
+
+if (cartIcon) {
+    cartIcon.addEventListener('click', () => {
+        cartIcon.classList.add('active');
+        setTimeout(() => cartIcon.classList.remove('active'), 600);
+    });
+}
+
+/* ================= MOBILE FILTER TOGGLE ===== */
+
+const filterToggleMobile = document.getElementById('filterToggleMobile');
+const filtersAside = document.querySelector('.filters');
+
+if (filterToggleMobile && filtersAside) {
+    filterToggleMobile.addEventListener('click', () => {
+        filtersAside.classList.toggle('mobile-open');
+        filterToggleMobile.classList.toggle('active');
+    });
+}
+
 
 /* ================= SUBSCRIBE BUTTON ================= */
 
