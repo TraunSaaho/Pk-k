@@ -34,9 +34,10 @@
                 <h2>Create a free account</h2>
 
                 <form id="signupForm">
-                    <input type="text" placeholder="Enter your name" required>
-                    <input type="email" placeholder="Enter your email" required>
-                    <input type="password" placeholder="Password" required>
+                    <input type="text" id="signupName" placeholder="Enter your name" required autocomplete="name">
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required autocomplete="email">
+                    <input type="password" id="signupPassword" placeholder="Password (min 8 chars)" required autocomplete="new-password" minlength="8">
+                    <input type="password" id="signupConfirmPassword" placeholder="Confirm password" required autocomplete="new-password" minlength="8">
 
                     <button type="submit" class="primary-btn">Sign up</button>
 
@@ -53,8 +54,8 @@
         </div>
 
     </div>
-
-    <script type="module" src="./scriptlogin.js"></script>
+    <script type="module" src="./scriptlogin-enhanced.js"></script>
 </body>
 
+</html>
 </html>

@@ -33,8 +33,16 @@
                 <h2>Login to your account</h2>
 
                 <form id="loginForm">
-                    <input type="email" placeholder="Enter your email" required>
-                    <input type="password" placeholder="Password" required>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required autocomplete="email">
+                    <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0;">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="checkbox" id="rememberMe" style="cursor: pointer;">
+                            <span style="font-size: 14px;">Remember me</span>
+                        </label>
+                        <a href="forgot-password.html" style="font-size: 14px; color: #ff6b00; text-decoration: none;">Forgot password?</a>
+                    </div>
 
                     <button type="submit" class="primary-btn">Login</button>
 
@@ -43,7 +51,7 @@
                     </button>
 
                     <p class="switch-text">
-                        Don’t have an account?
+                        Don't have an account?
                         <a href="signup.html">Sign up</a>
                     </p>
                 </form>
@@ -52,7 +60,32 @@
 
     </div>
 
-    <script type="module" src="./scriptlogin.js"></script>
+
+
+    <script>
+
+function loginUser(){
+
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    if(email === "" || password === ""){
+        alert("Please enter email and password");
+        return;
+    }
+
+    // Save login session
+    localStorage.setItem("lumiskinUser", email);
+
+    alert("Login Successful");
+
+    // Redirect to home page
+    window.location.href = "../index.html";
+}
+
+</script>
+
+    <script type="module" src="./scriptlogin-enhanced.js"></script>
 </body>
 
 </html>

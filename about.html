@@ -46,6 +46,15 @@
 
 
            <div class="nav-icons">
+
+
+
+            <script>
+/* CHECK USER LOGIN */
+if(localStorage.getItem("lumiskinUser") === null){
+    window.location.href = "Login/login.html";
+}
+</script>
     <!-- SEARCH -->
 <div class="search-container">
     <i class="fa-solid fa-magnifying-glass"></i>

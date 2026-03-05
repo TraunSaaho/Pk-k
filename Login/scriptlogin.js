@@ -119,12 +119,13 @@ if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const emailInput = loginForm.querySelector('input[type="email"]');
-        const passwordInput = loginForm.querySelector('input[type="password"]');
+        const emailInput = document.getElementById('loginEmail') || loginForm.querySelector('input[type="email"]');
+        const passwordInput = document.getElementById('loginPassword') || loginForm.querySelector('input[type="password"]');
         const submitBtn = loginForm.querySelector('.primary-btn') || loginForm.querySelector('button[type="submit"]');
 
         const email = emailInput ? emailInput.value.trim() : '';
         const password = passwordInput ? passwordInput.value : '';
+        const rememberMe = document.getElementById('rememberMe')?.checked || false;
 
         if (!email || !password) {
             showStatus('Please fill in all fields.', 'error');
@@ -188,9 +189,9 @@ if (signupForm) {
     signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const nameInput = signupForm.querySelector('input[type="text"]');
-        const emailInput = signupForm.querySelector('input[type="email"]');
-        const passwordInput = signupForm.querySelector('input[type="password"]');
+        const nameInput = document.getElementById('signupName') || signupForm.querySelector('input[type="text"]');
+        const emailInput = document.getElementById('signupEmail') || signupForm.querySelector('input[type="email"]');
+        const passwordInput = document.getElementById('signupPassword') || signupForm.querySelector('input[type="password"]');
         const submitBtn = signupForm.querySelector('.primary-btn') || signupForm.querySelector('button[type="submit"]');
 
         const name = nameInput ? nameInput.value.trim() : '';

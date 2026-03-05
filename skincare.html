@@ -87,6 +87,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </header>
 
+<script>
+/* CHECK USER LOGIN */
+if(localStorage.getItem("lumiskinUser") === null){
+    window.location.href = "Login/login.html";
+}
+</script>
+
   <!-- Navigation bar ends.-->
 
 
