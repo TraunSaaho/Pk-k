@@ -18,6 +18,34 @@
 
 <body>
 
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8TpspgRB49SJos3Jr6TjIb2CgUaJw5KA",
+            authDomain: "lumiskin-e2dba.firebaseapp.com",
+            projectId: "lumiskin-e2dba",
+            storageBucket: "lumiskin-e2dba.firebasestorage.app",
+            messagingSenderId: "530130297490",
+            appId: "1:530130297490:web:664375d22b2f0ae190fc4b",
+            measurementId: "G-E73FF0FB6Y"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Check authentication
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = "Login/login.html";
+            }
+        });
+    </script>
+
 
 
 
@@ -522,10 +550,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+    <script type="module">
+        // Firebase imports for logout
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
+        // Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8TpspgRB49SJos3Jr6TjIb2CgUaJw5KA",
+            authDomain: "lumiskin-e2dba.firebaseapp.com",
+            projectId: "lumiskin-e2dba",
+            storageBucket: "lumiskin-e2dba.firebasestorage.app",
+            messagingSenderId: "530130297490",
+            appId: "1:530130297490:web:664375d22b2f0ae190fc4b",
+            measurementId: "G-E73FF0FB6Y"
+        };
 
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-
+        // Make signOut available globally
+        window.firebaseSignOut = () => signOut(auth);
+    </script>
 
     <!-- JS -->
     <script src="script.js"></script>

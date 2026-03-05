@@ -210,36 +210,48 @@
 
    
 
-<!-- PRODUCTS SECTION NAVBAR -->
+<!-- PRODUCTS SECTION NAVBAR - ENHANCED -->
 
 <section class="products-navbar">
 
+    <!-- Left Section: Title & Product Count -->
     <div class="products-nav-left">
-        <h2>All Products</h2>
-        <span id="productCount">40 Products</span>
+        <div class="title-group">
+            <h2>Featured Collection</h2>
+            <span class="product-badge" id="productCount">40 Products</span>
+        </div>
     </div>
 
+    <!-- Center Section: Search Bar -->
+    <div class="products-nav-center">
+        <div class="search-wrapper-enhanced">
+            <i class="fa-solid fa-magnifying-glass" id="searchIcon"></i>
+            <input type="text" id="searchInput" placeholder="Search skincare products..." class="search-input-enhanced">
+            <button class="search-btn-clear" id="clearSearch" style="display: none;">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Right Section: Icons & Actions -->
     <div class="products-nav-right">
 
-        <!-- Search -->
-        <div class="search-wrapper">
-            <i class="fa-solid fa-magnifying-glass" id="searchIcon"></i>
-            <input type="text" id="searchInput" placeholder="Search products...">
-        </div>
-
-        
-
         <!-- Wishlist -->
-        <div class="icon">
-            <i class="fa-regular fa-heart"></i>
-            <span class="count" id="wishlistCount">0</span>
+        <div class="icon-wrapper wishlist-wrapper" title="Saved Items">
+            <i class="fa-regular fa-heart icon-heart"></i>
+            <span class="count wishlist-badge" id="wishlistCount">0</span>
         </div>
 
         <!-- Cart -->
-        <div class="icon">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="count" id="cartCount">0</span>
+        <div class="icon-wrapper cart-wrapper" title="Shopping Cart">
+            <i class="fa-solid fa-cart-shopping icon-cart"></i>
+            <span class="count cart-badge" id="cartCount">0</span>
         </div>
+
+        <!-- Filter Toggle (Mobile) -->
+        <button class="filter-toggle-mobile" id="filterToggleMobile">
+            <i class="fa-solid fa-sliders"></i>
+        </button>
 
     </div>
 

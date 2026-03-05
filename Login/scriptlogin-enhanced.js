@@ -68,6 +68,10 @@ onAuthStateChanged(auth, (user) => {
         // User is signed in
         document.body.dataset.authenticated = 'true';
         updateUserSession(user);
+        // If on login or signup page, redirect to index
+        if (window.location.pathname.includes('login.html') || window.location.pathname.includes('signup.html')) {
+            window.location.href = "../index.html";
+        }
     } else {
         console.log("❌ User not authenticated");
         document.body.dataset.authenticated = 'false';
