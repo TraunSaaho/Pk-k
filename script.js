@@ -3,6 +3,7 @@
    Clean • Error Safe • Production Ready
 ====================================================== */
 
+
 document.addEventListener("DOMContentLoaded", function () {
 
     /* ======================================================
@@ -31,6 +32,55 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    const searchInput = document.querySelector(".search-input");
+
+searchInput.addEventListener("keyup", function(e){
+
+    if(e.key === "Enter"){
+
+        const query = searchInput.value;
+
+        alert("Searching for: " + query);
+
+    }
+
+});
+
+
+const profileIcon = document.getElementById("profileIcon");
+const profileMenu = document.getElementById("profileMenu");
+const logoutBtn = document.getElementById("logoutBtn");
+
+/* open dropdown */
+
+profileIcon.onclick = function(){
+
+if(profileMenu.style.display === "block"){
+profileMenu.style.display = "none";
+}else{
+profileMenu.style.display = "block";
+}
+
+};
+
+/* logout */
+
+logoutBtn.onclick = function(){
+window.location.href = "login.html";
+};
+
+/* CLOSE DROPDOWN WHEN CLICKING OUTSIDE */
+
+document.addEventListener("click", function(event){
+
+const profileBox = document.querySelector(".profile-box");
+
+if(!profileBox.contains(event.target)){
+profileMenu.style.display = "none";
+}
+
+});
 
     // ===== ACTIVE PAGE HIGHLIGHT =====
     const currentPage = document.body.getAttribute("data-page");

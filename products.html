@@ -11,6 +11,9 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="shopskincare.css">
+
+
+
 </head>
 
   <body data-page="products.html">
@@ -21,7 +24,7 @@
     
     
 
-    <div class="logo">LumiSkin</div>
+   
 
     <!-- Navigation Links -->
      
@@ -29,12 +32,15 @@
 
 
  
-
+<a href="index.html" class="nav-logo">
+    <img src="cards/Untitled-1.png" alt="LumiSkin Logo">
+</a>
      
 
     <!-- Navigation ends Links -->
 
    <nav class="nav-links">
+    
     <a href="index.html">Home</a>
     <a href="skincare.html">Skincare</a>
     <a href="products.html" class="active">Products</a>
@@ -68,8 +74,7 @@
 
    <!-- face sperems sildes .-->
 
-
-
+   
    <div class="carousel">
         <div class="list">
             <div class="item">
@@ -194,6 +199,7 @@
 </div>
    </div>
 
+
   
    <!-- face sperems sildes end  .-->
 
@@ -243,37 +249,106 @@
 <div class="shop-container">
 
     <!-- FILTER SECTION -->
-    <aside class="filters">
-        <h3>Filters</h3>
+<aside class="filters">
 
-        <div class="filter-group">
-            <h4>Skin Type</h4>
-            <label><input type="checkbox" value="dry" class="filter skin"> Dry</label>
-            <label><input type="checkbox" value="oily" class="filter skin"> Oily</label>
-            <label><input type="checkbox" value="combination" class="filter skin"> Combination</label>
-            <label><input type="checkbox" value="sensitive" class="filter skin"> Sensitive</label>
-        </div>
+<h3>Filters</h3>
 
-        <div class="filter-group">
-            <h4>Price Range</h4>
-            <label><input type="checkbox" value="under500" class="filter price"> Under ₹500</label>
-            <label><input type="checkbox" value="500to1000" class="filter price"> ₹500 - ₹1000</label>
-            <label><input type="checkbox" value="above1000" class="filter price"> Above ₹1000</label>
-        </div>
+<div class="filter-group">
 
-        <div class="filter-group">
-            <h4>Product Type</h4>
-            <label><input type="checkbox" value="cleanser" class="filter type"> Cleanser</label>
-            <label><input type="checkbox" value="serum" class="filter type"> Serum</label>
-            <label><input type="checkbox" value="moisturizer" class="filter type"> Moisturizer</label>
-        </div>
+<h4>Condition</h4>
 
-        <button id="clearFilters">Clear All</button>
-    </aside>
+<label><input type="checkbox" value="Acne" class="condition"> Acne</label>
+<label><input type="checkbox" value="Rosacea" class="condition"> Rosacea</label>
+<label><input type="checkbox" value="Eczema" class="condition"> Eczema</label>
+<label><input type="checkbox" value="Darkspots" class="condition"> Darkspots</label>
+<label><input type="checkbox" value="Wrinkles" class="condition"> Wrinkles</label>
+<label><input type="checkbox" value="Dry" class="condition"> Dry</label>
+<label><input type="checkbox" value="Oily" class="condition"> Oily</label>
+<label><input type="checkbox" value="Normal" class="condition"> Normal</label>
+
+<!-- ADD THIS BUTTON -->
+<button id="clearFilters" class="clear-btn">Clear All</button>
+
+</div>
+
+</aside>
 
     <!-- PRODUCTS GRID -->
     <div class="products-grid" id="productsGrid">
         <!-- JS will generate 40 products -->
+    </div>
+
+</div>
+
+<!-- PRODUCT DETAIL PAGE -->
+
+<div id="productDetailPage" class="product-detail-page">
+
+
+
+
+<div class="product-detail-container">
+
+<div class="product-detail-left">
+<img id="detailImage">
+</div>
+
+<div class="product-detail-right">
+
+<h2 id="detailName"></h2>
+
+<div class="rating">⭐ 4.8 (1243 reviews)</div>
+
+<h1 id="detailPrice"></h1>
+
+<p class="product-desc">
+A gentle, pH-balanced cleanser that removes impurities without stripping skin.
+</p>
+
+<div class="ai-box">
+Perfect for your skin type. AI Recommended product.
+</div>
+
+<h3>Key Benefits</h3>
+
+<ul>
+<li>Deep cleansing</li>
+<li>Maintains skin barrier</li>
+<li>Non-drying formula</li>
+<li>Removes makeup</li>
+</ul>
+
+<div class="qty-box">
+<button id="minusBtn">-</button>
+<span id="qtyValue">1</span>
+<button id="plusBtn">+</button>
+</div>
+
+<button id="addCartBtn" class="cart-btn">Add to Cart</button>
+
+<p id="cartMessage"></p>
+
+<button id="backBtn" class="back-btn">
+← Back to Products
+</button>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- TOAST NOTIFICATION -->
+
+<div id="toastCart" class="toast-cart">
+✔ Product added to cart
+</div>
+
+
+
+
+        </div>
+
     </div>
 
 </div>
@@ -425,7 +500,8 @@
 
 
 <!-- JS -->
-<script src="shopskincare.js"></script>
 
+<script src="js/product40.js"></script>
+<script src="shopskincare.js"></script>
 </body>
 </html>

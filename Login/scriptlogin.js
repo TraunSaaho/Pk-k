@@ -294,3 +294,5 @@ document.querySelectorAll('.google-btn').forEach(btn => {
         }
     });
 });
+
+localStorage.setItem("lsUserLoggedIn", "true");
