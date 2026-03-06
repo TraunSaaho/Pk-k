@@ -1,4 +1,6 @@
-//* ===== Navigation System ===== */
+/* =====================================================
+   NAVIGATION SYSTEM
+===================================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -6,18 +8,20 @@ const hamburger = document.querySelector(".hamburger");
 const navLinks = document.querySelector(".nav-links");
 const navbar = document.querySelector(".navbar");
 
-/* ================= MOBILE MENU ================= */
+/* MOBILE MENU */
 
-if (hamburger) {
+if (hamburger && navLinks) {
 hamburger.addEventListener("click", () => {
 hamburger.classList.toggle("active");
 navLinks.classList.toggle("active");
 });
 }
 
-/* ================= SCROLL EFFECT ================= */
+/* SCROLL EFFECT */
 
 window.addEventListener("scroll", () => {
+if (!navbar) return;
+
 if (window.scrollY > 50) {
 navbar.classList.add("active");
 } else {
@@ -25,7 +29,7 @@ navbar.classList.remove("active");
 }
 });
 
-/* ================= ACTIVE PAGE HIGHLIGHT ================= */
+/* ACTIVE PAGE */
 
 const currentPage = document.body.getAttribute("data-page");
 
@@ -41,68 +45,99 @@ link.classList.add("active");
 
 
 
-   /* ================= SLIDER ================= */
+/* =====================================================
+   CAROUSEL SLIDER
+===================================================== */
 
-let nextButton = document.getElementById('next');
-let prevButton = document.getElementById('prev');
-let carousel = document.querySelector('.carousel');
-let listHTML = document.querySelector('.carousel .list');
+const nextButton = document.getElementById("next");
+const prevButton = document.getElementById("prev");
+const carousel = document.querySelector(".carousel");
+const listHTML = document.querySelector(".carousel .list");
 
-let unAcceppClick;
+let autoScroll;
 
-const showSlider = (type) => {
-    nextButton.style.pointerEvents = 'none';
-    prevButton.style.pointerEvents = 'none';
+function showSlider(type){
 
-    carousel.classList.remove('next', 'prev');
-    let items = listHTML.querySelectorAll('.item');
+if(!carousel || !listHTML) return;
 
-    if(type === 'next'){
-        listHTML.appendChild(items[0]);
-        carousel.classList.add('next');
-    }else{
-        listHTML.prepend(items[items.length - 1]);
-        carousel.classList.add('prev');
-    }
+const items = listHTML.querySelectorAll(".item");
 
-    clearTimeout(unAcceppClick);
-    unAcceppClick = setTimeout(()=>{
-        nextButton.style.pointerEvents = 'auto';
-        prevButton.style.pointerEvents = 'auto';
-    }, 1200);
-};
+carousel.classList.remove("next","prev");
 
-nextButton.onclick = function(){
-    showSlider('next');
-};
+if(type === "next"){
+listHTML.appendChild(items[0]);
+carousel.classList.add("next");
+}else{
+listHTML.prepend(items[items.length-1]);
+carousel.classList.add("prev");
+}
 
-prevButton.onclick = function(){
-    showSlider('prev');
-};
+}
+
+/* BUTTON EVENTS */
+
+if(nextButton){
+nextButton.addEventListener("click",()=>{
+showSlider("next");
+resetAutoSlide();
+});
+}
+
+if(prevButton){
+prevButton.addEventListener("click",()=>{
+showSlider("prev");
+resetAutoSlide();
+});
+}
+
+/* AUTO SLIDE */
+
+function startAutoSlide(){
+if(!carousel) return;
+
+autoScroll = setInterval(()=>{
+showSlider("next");
+},4000);
+}
+
+function stopAutoSlide(){
+clearInterval(autoScroll);
+}
+
+function resetAutoSlide(){
+stopAutoSlide();
+startAutoSlide();
+}
+
+/* HOVER PAUSE */
+
+if(carousel){
+carousel.addEventListener("mouseenter",stopAutoSlide);
+carousel.addEventListener("mouseleave",startAutoSlide);
+}
+
+startAutoSlide();
 
 
-/* ================= AUTO SCROLL ================= */
 
-let autoScroll = setInterval(() => {
-    showSlider('next');
-}, 3500);
-
-
-/* ================= PRODUCTS SYSTEM ================= */
+/* =====================================================
+   PRODUCTS SYSTEM
+===================================================== */
 
 const productsGrid = document.getElementById("productsGrid");
 const clearBtn = document.getElementById("clearFilters");
 const productCount = document.getElementById("productCount");
-
 const cartCountEl = document.getElementById("cartCount");
 
 let cartCount = 0;
 let products = [];
 
 
-/* ================= RENDER PRODUCTS ================= */
+/* RENDER PRODUCTS */
 
 function renderProducts(productArray){
+
+if(!productsGrid) return;
 
 productsGrid.innerHTML = "";
 
@@ -124,19 +159,30 @@ openProduct(product);
 
 card.querySelector(".addCartBtn").addEventListener("click",(e)=>{
 e.stopPropagation();
+
 cartCount++;
+
+if(cartCountEl){
 cartCountEl.textContent = cartCount;
+}
+
 });
 
 productsGrid.appendChild(card);
 
 });
 
+if(productCount){
 productCount.textContent = productArray.length + " Products";
+}
 
 }
 
-/* ================= PRODUCT QUANTITY ================= */
+
+
+/* =====================================================
+   PRODUCT DETAIL PAGE
+===================================================== */
 
 let qty = 1;
 let currentProduct = null;
@@ -149,15 +195,13 @@ const qtyEl = document.getElementById("qtyValue");
 
 if(!plusBtn || !minusBtn || !qtyEl) return;
 
-/* PLUS BUTTON */
-plusBtn.onclick = () => {
+plusBtn.onclick = ()=>{
 qty++;
 qtyEl.innerText = qty;
 };
 
-/* MINUS BUTTON */
-minusBtn.onclick = () => {
-if(qty > 1){
+minusBtn.onclick = ()=>{
+if(qty>1){
 qty--;
 qtyEl.innerText = qty;
 }
@@ -166,7 +210,8 @@ qtyEl.innerText = qty;
 }
 
 
-/* ================= ADD TO CART ================= */
+
+/* ADD TO CART */
 
 function initAddToCart(){
 
@@ -176,11 +221,9 @@ const toast = document.getElementById("toastCart");
 
 if(!addCartBtn) return;
 
-addCartBtn.onclick = () => {
+addCartBtn.onclick = ()=>{
 
 if(!currentProduct) return;
-
-/* UPDATE CART COUNT */
 
 cartCount += qty;
 
@@ -188,24 +231,12 @@ if(cartCounter){
 cartCounter.innerText = cartCount;
 }
 
-/* PRODUCT DATA */
-
-const productData = {
-name: document.getElementById("detailName").innerText,
-price: document.getElementById("detailPrice").innerText,
-quantity: qty
-};
-
-console.log("Added to Cart:", productData);
-
-/* TOAST NOTIFICATION */
-
 if(toast){
 toast.style.opacity = "1";
 toast.style.bottom = "40px";
 
 setTimeout(()=>{
-toast.style.opacity = "0";
+toast.style.opacity="0";
 },2000);
 }
 
@@ -214,12 +245,16 @@ toast.style.opacity = "0";
 }
 
 
-/* ================= UPDATE PRODUCT OPEN FUNCTION ================= */
+
+/* OPEN PRODUCT */
 
 function openProduct(product){
 
-document.querySelector(".shop-container").style.display="none";
-document.getElementById("productDetailPage").style.display="block";
+const shopContainer = document.querySelector(".shop-container");
+const detailPage = document.getElementById("productDetailPage");
+
+if(shopContainer) shopContainer.style.display="none";
+if(detailPage) detailPage.style.display="block";
 
 document.getElementById("detailImage").src = product.image_url;
 document.getElementById("detailName").innerText = product.product_name;
@@ -227,12 +262,8 @@ document.getElementById("detailPrice").innerText = "₹"+product.price;
 
 currentProduct = product;
 
-/* RESET QUANTITY */
-
 qty = 1;
 document.getElementById("qtyValue").innerText = qty;
-
-/* INITIALIZE BUTTONS */
 
 initProductControls();
 initAddToCart();
@@ -241,58 +272,34 @@ initAddToCart();
 
 
 
+/* BACK BUTTON */
 
+const backBtn = document.getElementById("backBtn");
 
-
-
-/* ================= NOTIFICATION ================= */
-
-function showNotification(message){
-
-const notification = document.createElement("div");
-
-notification.innerText = message;
-
-notification.style.position = "fixed";
-notification.style.bottom = "30px";
-notification.style.right = "30px";
-notification.style.background = "black";
-notification.style.color = "white";
-notification.style.padding = "12px 18px";
-notification.style.borderRadius = "6px";
-notification.style.fontSize = "14px";
-notification.style.zIndex = "9999";
-
-document.body.appendChild(notification);
-
-setTimeout(()=>{
-
-notification.remove();
-
-},2500);
-
-}
-
-/* ================= BACK BUTTON ================= */
-
-document.getElementById("backBtn").onclick = () => {
+if(backBtn){
+backBtn.onclick = ()=>{
 
 document.querySelector(".shop-container").style.display="flex";
 document.getElementById("productDetailPage").style.display="none";
 
 };
+}
 
 
-/* ================= FILTER FUNCTION ================= */
+
+/* =====================================================
+   FILTER SYSTEM
+===================================================== */
 
 function applyFilters(){
 
-const selectedConditions = [...document.querySelectorAll(".condition:checked")]
+const selectedConditions =
+[...document.querySelectorAll(".condition:checked")]
 .map(el => el.value);
 
 let filteredProducts = products;
 
-if(selectedConditions.length > 0){
+if(selectedConditions.length>0){
 
 filteredProducts = products.filter(product =>
 selectedConditions.includes(product.condition)
@@ -304,45 +311,47 @@ renderProducts(filteredProducts);
 
 }
 
-
-/* ================= FILTER EVENTS ================= */
-
 document.querySelectorAll(".condition").forEach(filter=>{
 filter.addEventListener("change",applyFilters);
 });
 
+if(clearBtn){
 clearBtn.addEventListener("click",()=>{
+document.querySelectorAll(".condition")
+.forEach(c=>c.checked=false);
 
-document.querySelectorAll(".condition").forEach(c=>c.checked=false);
 renderProducts(products);
-
 });
+}
 
 
-/* ================= LOAD PRODUCTS JSON ================= */
+
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
 
 fetch("products.json")
 .then(res=>res.json())
 .then(data=>{
-
-products = data;
+products=data;
 renderProducts(products);
-
 });
 
 
-/* ================= SEARCH ================= */
+
+/* =====================================================
+   SEARCH SYSTEM
+===================================================== */
 
 const searchIcon = document.getElementById("searchIcon");
 const searchInput = document.getElementById("searchInput");
 
-searchIcon.addEventListener("click",()=>{
+if(searchIcon && searchInput){
 
+searchIcon.addEventListener("click",()=>{
 searchInput.classList.toggle("active");
 searchInput.focus();
-
 });
-
 
 searchInput.addEventListener("keyup",()=>{
 
@@ -356,82 +365,83 @@ renderProducts(filtered);
 
 });
 
-/* ================= ENHANCED SEARCH FUNCTIONALITY ===== */
-
-const searchInput = document.getElementById('searchInput');
-const clearSearchBtn = document.getElementById('clearSearch');
-
-if (searchInput) {
-    // Show/hide clear button based on input
-    searchInput.addEventListener('input', () => {
-        if (searchInput.value.length > 0) {
-            clearSearchBtn.style.display = 'flex';
-        } else {
-            clearSearchBtn.style.display = 'none';
-        }
-    });
-
-    // Clear search on button click
-    clearSearchBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        clearSearchBtn.style.display = 'none';
-        searchInput.focus();
-        // Trigger search to show all products
-        searchInput.dispatchEvent(new Event('input'));
-    });
-
-    // Add focus animation
-    searchInput.addEventListener('focus', () => {
-        searchInput.parentElement.style.borderColor = '#ff6b00';
-    });
-
-    searchInput.addEventListener('blur', () => {
-        if (searchInput.value.length === 0) {
-            searchInput.parentElement.style.borderColor = '#e0e0e0';
-        }
-    });
-}
-
-/* ================= WISHLIST & CART ANIMATIONS ===== */
-
-const wishlistIcon = document.querySelector('.wishlist-wrapper');
-const cartIcon = document.querySelector('.cart-wrapper');
-
-if (wishlistIcon) {
-    wishlistIcon.addEventListener('click', () => {
-        wishlistIcon.classList.add('active');
-        setTimeout(() => wishlistIcon.classList.remove('active'), 600);
-    });
-}
-
-if (cartIcon) {
-    cartIcon.addEventListener('click', () => {
-        cartIcon.classList.add('active');
-        setTimeout(() => cartIcon.classList.remove('active'), 600);
-    });
-}
-
-/* ================= MOBILE FILTER TOGGLE ===== */
-
-const filterToggleMobile = document.getElementById('filterToggleMobile');
-const filtersAside = document.querySelector('.filters');
-
-if (filterToggleMobile && filtersAside) {
-    filterToggleMobile.addEventListener('click', () => {
-        filtersAside.classList.toggle('mobile-open');
-        filterToggleMobile.classList.toggle('active');
-    });
 }
 
 
-/* ================= SUBSCRIBE BUTTON ================= */
+
+/* CLEAR SEARCH */
+
+const clearSearchBtn = document.getElementById("clearSearch");
+
+if(clearSearchBtn && searchInput){
+
+searchInput.addEventListener("input",()=>{
+clearSearchBtn.style.display =
+searchInput.value.length>0 ? "flex":"none";
+});
+
+clearSearchBtn.addEventListener("click",()=>{
+searchInput.value="";
+clearSearchBtn.style.display="none";
+renderProducts(products);
+});
+
+}
+
+
+
+/* =====================================================
+   ICON ANIMATIONS
+===================================================== */
+
+const wishlistIcon = document.querySelector(".wishlist-wrapper");
+const cartIcon = document.querySelector(".cart-wrapper");
+
+if(wishlistIcon){
+wishlistIcon.addEventListener("click",()=>{
+wishlistIcon.classList.add("active");
+setTimeout(()=>wishlistIcon.classList.remove("active"),600);
+});
+}
+
+if(cartIcon){
+cartIcon.addEventListener("click",()=>{
+cartIcon.classList.add("active");
+setTimeout(()=>cartIcon.classList.remove("active"),600);
+});
+}
+
+
+
+/* =====================================================
+   MOBILE FILTER
+===================================================== */
+
+const filterToggleMobile = document.getElementById("filterToggleMobile");
+const filtersAside = document.querySelector(".filters");
+
+if(filterToggleMobile && filtersAside){
+
+filterToggleMobile.addEventListener("click",()=>{
+filtersAside.classList.toggle("mobile-open");
+filterToggleMobile.classList.toggle("active");
+});
+
+}
+
+
+
+/* =====================================================
+   SUBSCRIBE BUTTON
+===================================================== */
 
 const subscribeBtn = document.querySelector(".subscribe-box button");
 
 if(subscribeBtn){
-subscribeBtn.addEventListener("click",()=>{
-subscribeBtn.innerText = "Subscribed ✓";
-subscribeBtn.style.background = "#28a745";
-});
-}
 
+subscribeBtn.addEventListener("click",()=>{
+subscribeBtn.innerText="Subscribed ✓";
+subscribeBtn.style.background="#28a745";
+});
+
+}

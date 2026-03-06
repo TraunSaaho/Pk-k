@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #e6dede;
+    background: #e6dede !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +16,7 @@ body {
 .container {
     width: 1200px;
     height: 700px;
-    background: #f4eded;
+    background: #f4eded !important;
     border-radius: 20px;
     display: flex;
     overflow: hidden;
@@ -33,13 +33,17 @@ body {
 }
 
 .text-box {
-    background: white;
+    background: #ffffff;   /* white background */
     padding: 40px;
     width: 80%;
     position: relative;
     z-index: 2;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border-radius: 6px;
 }
+
+
+
 
 .text-box h1 {
     font-size: 38px;
@@ -95,8 +99,8 @@ form input {
     border-bottom: 1px solid #ddd;
     outline: none;
     font-size: 14px;
+    background: transparent;
 }
-
 /* BUTTONS */
 
 .primary-btn {
@@ -108,7 +112,6 @@ form input {
     border-radius: 30px;
     cursor: pointer;
     margin-bottom: 15px;
-    transition: 0.3s;
 }
 
 .primary-btn:hover {
@@ -125,9 +128,16 @@ form input {
     margin-bottom: 20px;
 }
 
-.switch-text {
-    text-align: center;
-    font-size: 14px;
+
+
+.form-box h2 {
+    margin-bottom: 30px;
+    color: #4a1f1f;
+}
+.switch-text a {
+    color: #8b735c;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .switch-text a {
@@ -138,9 +148,11 @@ form input {
 
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f2eaea;
+    background: #e6dede;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 /* HOME */
@@ -196,18 +208,19 @@ input {
     cursor: pointer;
 }
 
+
 .google-btn {
     width: 100%;
     padding: 12px;
+    border-radius: 30px;
     border: 1px solid #ccc;
     background: white;
-    border-radius: 25px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    margin-bottom: 20px;
 }
+
+
+
 
 .google-btn img {
     width: 20px;
@@ -331,9 +344,11 @@ input:focus {
     }
 
     .form-box {
-        background: #333;
-        color: #fff;
-    }
+    background: #ffffff;
+    padding: 50px;
+    width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
 
     input,
     button {
@@ -367,3 +382,5 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+
