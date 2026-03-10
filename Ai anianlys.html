@@ -3,18 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Skin Analysis</title>
-<link rel="stylesheet" href="style ai skin.css">
+<title>Skin AI Model Test</title>
 
-<link rel="stylesheet" href="upload.css">
+<link rel="stylesheet" href="NewAianianlys.css">
+
+<link rel="stylesheet" href="Allpages.css">
 
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 </head>
+
 <body>
 
-    <!-- upolad iamge part -->  
+<div class="wrapper">
+
+<header>
+
+
+<div class="status-pill">
+<div class="status-dot" id="statusDot"></div>
+<span id="statusText">Checking...</span>
+</div>
+
+</header>
+
+
+<!-- MODEL 1 -->
+
 
 <section id="uploadScreen" class="screen active">
 <div class="app">
@@ -121,14 +141,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 </div>
 
-
 </section>
+ <!-- upolad iamge part end  -->  
 
 
-    <!-- STEP 2 : Skin Concerns -->
-  
 
- <section class="screen" id="concernScreen">
+
+  <!-- senode silde  -->  
+
+   <section class="screen" id="concernScreen">
 
     <div class="back" id="backToUpload">
         <i class="fa-solid fa-arrow-left"></i> Back
@@ -160,21 +181,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
                 <span>Wrinkles</span>
             </button>
 
-            <button class="concern" data-value="Large Pores">
-                <i class="fa-solid fa-circle"></i>
-                <span>Large Pores</span>
-            </button>
-
-            <button class="concern" data-value="Dark Circles">
-                <i class="fa-solid fa-eye"></i>
-                <span>Dark Circles</span>
-            </button>
-
-            <button class="concern" data-value="Uneven Texture">
-                <i class="fa-solid fa-water"></i>
-                <span>Uneven Texture</span>
-            </button>
-
+            
             <button class="concern" data-value="Dryness">
                 <i class="fa-solid fa-sun"></i>
                 <span>Dryness</span>
@@ -185,17 +192,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
                 <span>Oiliness</span>
             </button>
 
-            <button class="concern" data-value="Redness">
-                <i class="fa-solid fa-temperature-high"></i>
-                <span>Redness</span>
-            </button>
+        
 
-            <button class="concern" data-value="Sensitivity">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-                <span>Sensitivity</span>
-            </button>
-
-        </div>
+        
 
         <div class="textarea-box">
             <label>Additional details (optional)</label>
@@ -211,7 +210,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 
 </section>
 
-    <!-- STEP 3 : Loading -->
+  <!-- senode silde End  -->  
+
+
+   <!-- STEP 3 : Loading -->
    <!-- STEP 3 : AI Loading -->
 <section id="loadingScreen" class="screen">
 
@@ -259,54 +261,118 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </section>
     <!-- STEP 3 : Loading -->
 
+
+
     
-    <!-- STEP 4 : Unlock -->
-    <section class="screen" id="unlockScreen">
 
-        <h1>We Detected Multiple Skin Concerns</h1>
-        <h2>$2 One-Time Payment</h2>
 
-        <button class="primary-btn" id="unlockBtn">Unlock Full Report</button>
 
-    </section>
+<!-- MODEL 2 -->
 
-    <!-- STEP 5 : Report -->
-    <section class="screen" id="reportScreen">
+<div class="card" id="severityCard" style="display:none">
 
-        <h1>Your Skin Analysis Report</h1>
+<h3>Severity Prediction</h3>
 
-        <div class="report-box">
-            <p><strong>Pigmentation:</strong> <span id="pigScore"></span></p>
-            <p><strong>Acne:</strong> <span id="acneScore"></span></p>
-            <p><strong>Wrinkles:</strong> <span id="wrinkleScore"></span></p>
-        </div>
+<div class="field-grid">
 
-        <button class="primary-btn" id="viewRoutine">View Personalized Routine</button>
+<div class="field">
+<label>Age</label>
+<input type="number" id="f_age" value="25">
+</div>
 
-    </section>
+<div class="field">
+<label>Gender</label>
+<select id="f_gender">
+<option value="1">Female</option>
+<option value="0">Male</option>
+</select>
+</div>
 
-    <!-- STEP 6 : Routine -->
-    <section class="screen" id="routineScreen">
+<div class="field">
+<label>Skin Type</label>
+<select id="f_skin_type">
+<option value="0">Normal</option>
+<option value="1">Oily</option>
+<option value="2">Dry</option>
+</select>
+</div>
 
-        <h1>Your Personalized Routine</h1>
-
-        <div class="routine-box">
-            <h3>Morning</h3>
-            <p>Gentle Cleanser</p>
-            <p>Vitamin C</p>
-            <p>Sunscreen SPF 50+</p>
-
-            <h3>Night</h3>
-            <p>Cleanser</p>
-            <p>Retinol</p>
-            <p>Moisturizer</p>
-        </div>
-
-    </section>
+<div class="field">
+<label>Climate</label>
+<select id="f_climate">
+<option value="1">Tropical</option>
+<option value="0">Dry</option>
+</select>
+</div>
 
 </div>
 
+
+<button class="btn-gradient" onclick="runSkinModel()">
+Run Severity Model
+</button>
+
+
+<div class="result-panel" id="skinResult">
+
+<h3 id="severityLabel">—</h3>
+
+<div id="lifestyleTips"></div>
+
+<div class="json-box" id="skinJson"></div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="NewAianian.js"></script>
 <script src="upload.js"></script>
 <script src="script ai skin.js"></script>
+
+
+
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
