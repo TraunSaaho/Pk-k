@@ -1,247 +1,235 @@
 /* ===============================
-   GLOBAL APP STATE
-================================= */
+GLOBAL APP STATE
+=============================== */
 
 const appState = {
     uploadedImage: null,
     selectedConcerns: [],
-    description: "",
-    analysisScores: {},
-    paymentStatus: false
+    description: ""
 };
 
-console.log("App Initialized", appState);
+console.log("App Started");
 
 
 /* ===============================
-   SCREEN CONTROLLER
-================================= */
+SCREEN CONTROLLER
+=============================== */
 
-const screens = document.querySelectorAll(".screen");
+function showScreen(screenId){
 
-function showScreen(id) {
-    screens.forEach(screen => {
+    const screens = document.querySelectorAll(".screen");
+
+    screens.forEach(screen=>{
         screen.classList.remove("active");
     });
 
-    document.getElementById(id).classList.add("active");
-    console.log("Navigated to:", id);
+    document.getElementById(screenId).classList.add("active");
+
 }
 
 
 /* ===============================
-   STEP 1 : IMAGE UPLOAD
-================================= */
+STEP 1 : IMAGE UPLOAD
+=============================== */
 
-const uploadBtn = document.getElementById("uploadBtn");
+const cameraBtn = document.getElementById("cameraBtn");
+const galleryBtn = document.getElementById("galleryBtn");
 const fileInput = document.getElementById("fileInput");
-const imagePreview = document.getElementById("imagePreview");
-const continueBtn = document.getElementById("continueToConcerns");
+const previewImage = document.getElementById("previewImage");
+const continueBtn = document.getElementById("continueBtn");
 
-uploadBtn.addEventListener("click", () => {
-    console.log("Upload Button Clicked");
+galleryBtn.addEventListener("click", () => {
     fileInput.click();
 });
 
-fileInput.addEventListener("change", function () {
+fileInput.addEventListener("change", function(){
 
     const file = this.files[0];
 
-    if (!file) return;
+    if(!file) return;
 
     const reader = new FileReader();
 
-    reader.onload = function (e) {
+    reader.onload = function(e){
 
-        imagePreview.innerHTML = `<img src="${e.target.result}" />`;
+        previewImage.src = e.target.result;
+        previewImage.style.display = "block";
 
         appState.uploadedImage = file.name;
 
-        console.log("Image Uploaded:", file.name);
+        console.log("Uploaded Image:",file.name);
 
         continueBtn.classList.remove("hidden");
 
     };
 
     reader.readAsDataURL(file);
+
 });
 
-continueBtn.addEventListener("click", () => {
-    console.log("Proceeding to Concern Selection");
+
+/* GO TO STEP 2 */
+
+continueBtn.addEventListener("click",function(){
+
+    if(!appState.uploadedImage){
+        alert("Please upload image first");
+        return;
+    }
+
     showScreen("concernScreen");
+
+    console.log("Moved to Step 2");
+
 });
 
 
 /* ===============================
-   STEP 2 : CONCERN SELECTION
-================================= */
+STEP 2 : CONCERN SELECTION
+=============================== */
 
 const concernButtons = document.querySelectorAll(".concern");
 const descriptionInput = document.getElementById("description");
 const startAnalysisBtn = document.getElementById("startAnalysis");
 
-concernButtons.forEach(button => {
+concernButtons.forEach(button=>{
 
-    button.addEventListener("click", () => {
+    button.addEventListener("click",function(){
 
-        button.classList.toggle("active");
+        const value = this.getAttribute("data-value");
 
-        const concern = button.innerText;
+        this.classList.toggle("active");
 
-        if (appState.selectedConcerns.includes(concern)) {
+        if(appState.selectedConcerns.includes(value)){
 
             appState.selectedConcerns =
-                appState.selectedConcerns.filter(item => item !== concern);
+            appState.selectedConcerns.filter(item=>item!==value);
 
-        } else {
+        }else{
 
-            appState.selectedConcerns.push(concern);
+            appState.selectedConcerns.push(value);
 
         }
 
-        console.log("Selected Concerns:", appState.selectedConcerns);
+        console.log("Selected Concerns:",appState.selectedConcerns);
+
     });
 
 });
 
-descriptionInput.addEventListener("input", () => {
+
+descriptionInput.addEventListener("input",function(){
+
     appState.description = descriptionInput.value;
-    console.log("User Description:", appState.description);
+
 });
 
-startAnalysisBtn.addEventListener("click", () => {
 
-    if (!appState.uploadedImage) {
-        alert("Please upload image first");
-        return;
-    }
+/* GO TO STEP 3 */
 
-    console.log("Starting Analysis...");
+startAnalysisBtn.addEventListener("click",function(){
+
+    console.log("Starting AI Analysis");
+
+    console.log("User Data:",appState);
+
     showScreen("loadingScreen");
+
     startLoadingAnimation();
+
 });
 
 
 /* ===============================
-   STEP 3 : LOADING ANIMATION
-================================= */
+STEP 3 : AI LOADING
+=============================== */
 
-function startLoadingAnimation() {
+function startLoadingAnimation(){
 
     const progressBar = document.getElementById("progress");
     const loadingText = document.getElementById("loadingText");
 
     let progress = 0;
 
-    const loadingSteps = [
+    const steps = [
         "Analyzing pigmentation...",
         "Measuring wrinkle depth...",
         "Scanning pores...",
-        "Evaluating texture...",
-        "Finalizing AI model..."
+        "Evaluating skin texture...",
+        "Finalizing AI report..."
     ];
 
     let stepIndex = 0;
 
-    const interval = setInterval(() => {
+    const interval = setInterval(function(){
 
         progress += 2;
+
         progressBar.style.width = progress + "%";
 
-        if (progress % 20 === 0 && stepIndex < loadingSteps.length) {
-            loadingText.innerText = loadingSteps[stepIndex];
-            console.log("AI Step:", loadingSteps[stepIndex]);
+        if(progress % 20 === 0 && stepIndex < steps.length){
+
+            loadingText.innerText = steps[stepIndex];
+
             stepIndex++;
+
         }
 
-        if (progress >= 100) {
+        if(progress >= 100){
 
             clearInterval(interval);
 
-            generateFakeResults();
+            console.log("AI Analysis Complete");
 
-            setTimeout(() => {
+            setTimeout(function(){
+
                 showScreen("unlockScreen");
-            }, 800);
+
+            },800);
 
         }
 
-    }, 100);
+    },80);
+
+} 
+
+
+showScreen("unlockScreen");
+
+
+if(progress >= 100){
+
+    clearInterval(interval);
+
+    console.log("AI Analysis Complete");
+
+    setTimeout(function(){
+
+        showScreen("unlockScreen");   // 👈 THIS OPENS SLIDE 4
+
+    },800);
+
+}
+
+function showScreen(screenId){
+
+    const screens = document.querySelectorAll(".screen");
+
+    screens.forEach(screen=>{
+        screen.classList.remove("active");
+    });
+
+    document.getElementById(screenId).classList.add("active");
+
 }
 
 
-/* ===============================
-   STEP 4 : GENERATE FAKE RESULTS
-================================= */
+const viewReportBtn = document.getElementById("viewReport");
 
-function generateFakeResults() {
+if(viewReportBtn){
+viewReportBtn.addEventListener("click",function(){
 
-    appState.analysisScores = {
-        pigmentation: (Math.random() * 5).toFixed(1),
-        acne: (Math.random() * 5).toFixed(1),
-        wrinkles: (Math.random() * 5).toFixed(1)
-    };
-
-    console.log("Analysis Results:", appState.analysisScores);
-}
-
-
-/* ===============================
-   STEP 5 : PAYMENT SIMULATION
-================================= */
-
-const unlockBtn = document.getElementById("unlockBtn");
-
-unlockBtn.addEventListener("click", () => {
-
-    console.log("Payment Button Clicked");
-
-    unlockBtn.innerText = "Processing Payment...";
-    unlockBtn.disabled = true;
-
-    setTimeout(() => {
-
-        appState.paymentStatus = true;
-
-        console.log("Payment Successful");
-
-        showScreen("reportScreen");
-
-        displayResults();
-
-    }, 2000);
-});
-
-
-/* ===============================
-   STEP 6 : DISPLAY REPORT
-================================= */
-
-function displayResults() {
-
-    document.getElementById("pigScore").innerText =
-        appState.analysisScores.pigmentation + " / 5";
-
-    document.getElementById("acneScore").innerText =
-        appState.analysisScores.acne + " / 5";
-
-    document.getElementById("wrinkleScore").innerText =
-        appState.analysisScores.wrinkles + " / 5";
-
-    console.log("Report Displayed");
-}
-
-
-/* ===============================
-   STEP 7 : ROUTINE PAGE
-================================= */
-
-const viewRoutineBtn = document.getElementById("viewRoutine");
-
-viewRoutineBtn.addEventListener("click", () => {
-
-    console.log("Viewing Personalized Routine");
-
-    showScreen("routineScreen");
+console.log("User clicked full report");
 
 });
+}
